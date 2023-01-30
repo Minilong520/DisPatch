@@ -34,7 +34,7 @@ namespace DisPatch.Api.Controllers
         [Route("SetGantt")]
         public RES_Basis Set(REQ_GanttSet reqGanttSet)
         {
-            return new SGanttGet().Execute(reqGanttSet);
+            return new SGanttSet().Execute(reqGanttSet);
         }
     }
 }

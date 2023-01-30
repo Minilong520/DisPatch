@@ -343,9 +343,19 @@ export default class IndexPage extends Component<any, any> {
     sel.setState({
       loading: true,
     }, () => {
+      // 1.日期格式化
+      let newData = sel.state.ganttData.map((item: any) => {
+        item.start = new Date(item.start).toLocaleString();
+        item.end = new Date(item.end).toLocaleString()
+        return item
+      });
+
+      // 2.调用接口
       request.post(`${_url}/Gantt/SetGantt`, {
         data: {
-          ganttInfos: sel.state.ganttData
+          key:"",
+          userNo:"",
+          ganttInfo: newData
         },
       }).then(function (response) {
         console.log(response);

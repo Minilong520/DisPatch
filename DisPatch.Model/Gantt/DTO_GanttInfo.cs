@@ -31,7 +31,7 @@ namespace DisPatch.Model.Gantt
         /// <summary>
         /// 工作日期（主键）
         /// </summary>
-        public DateTime workDate { get; set; }
+        public string workDate { get; set; }
 
         /// <summary>
         /// 执行任务（各甘特标记）

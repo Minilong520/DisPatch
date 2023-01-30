@@ -1,1 +1,7 @@
 .vs/DisPatch/
+DisPatch.Api/bin/
+DisPatch.Api/obj/Debug/
+DisPatch.Api/obj/staticwebassets.pack.sentinel
+DisPatch.DB/obj/Debug/
+DisPatch.Implements/obj/Debug/
+DisPatch.Model/obj/Debug/

@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.Json;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -20,7 +22,21 @@ builder.Services.AddCors(options =>
 });
 
 //解决json对象反序列化之后，大写字母被转成小写的问题
-builder.Services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+builder.Services.AddMvc().AddJsonOptions(    
+    options => {        
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    }
+);
+
+//builder.Services.Configure<JsonOptions>(options =>
+//{
+//    options.SerializerOptions.Converters.Add(new TimeOnly);
+//});
+
+builder.Services.AddControllers(options =>
+{
+    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+});
 
 var app = builder.Build();
 
