@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <BaseOutputPath>..\DisPatch.Api\bin\Debug\net6.0</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DisPatch.Common\DisPatch.Common.csproj" />
+    <ProjectReference Include="..\DisPatch.DB\DisPatch.DB.csproj" />
+    <ProjectReference Include="..\DisPatch.Model\DisPatch.Model.csproj" />
+  </ItemGroup>
+
+</Project>
