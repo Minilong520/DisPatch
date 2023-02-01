@@ -1,15 +1,7 @@
 import { addRule, removeRule, rule, updateRule } from '@/services/ant-design-pro/api';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
-import {
-  FooterToolbar,
-  ModalForm,
-  PageContainer,
-  ProDescriptions,
-  ProFormText,
-  ProFormTextArea,
-  ProTable,
-} from '@ant-design/pro-components';
+import { FooterToolbar, ModalForm, PageContainer, ProDescriptions, ProFormText, ProFormTextArea, ProTable, } from '@ant-design/pro-components';
 import { FormattedMessage, useIntl } from '@umijs/max';
 import { Button, Drawer, Input, message } from 'antd';
 import React, { useRef, useState } from 'react';
@@ -272,6 +264,7 @@ const TableList: React.FC = () => {
           },
         }}
       />
+
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
@@ -311,6 +304,7 @@ const TableList: React.FC = () => {
           </Button>
         </FooterToolbar>
       )}
+
       <ModalForm
         title={intl.formatMessage({
           id: 'pages.searchTable.createForm.newRule',
@@ -346,6 +340,7 @@ const TableList: React.FC = () => {
         />
         <ProFormTextArea width="md" name="desc" />
       </ModalForm>
+    
       <UpdateForm
         onSubmit={async (value) => {
           const success = await handleUpdate(value);
@@ -390,6 +385,7 @@ const TableList: React.FC = () => {
           />
         )}
       </Drawer>
+    
     </PageContainer>
   );
 };

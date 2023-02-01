@@ -21,29 +21,29 @@ export default [
         component: './User/Login',
       },
     ],
-  },
+  }, 
+  // {
+  //   path: '/admin',
+  //   name: 'admin',
+  //   icon: 'crown',
+  //   access: 'canAdmin',
+  //   routes: [
+  //     {
+  //       path: '/admin',
+  //       redirect: '/admin/sub-page',
+  //     },
+  //     {
+  //       path: '/admin/sub-page',
+  //       name: 'sub-page',
+  //       component: './Admin',
+  //     },
+  //   ],
+  // },
   {
-    path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
-    component: './Welcome',
-  },
-  {
-    path: '/admin',
-    name: 'admin',
-    icon: 'crown',
-    access: 'canAdmin',
-    routes: [
-      {
-        path: '/admin',
-        redirect: '/admin/sub-page',
-      },
-      {
-        path: '/admin/sub-page',
-        name: 'sub-page',
-        component: './Admin',
-      },
-    ],
+    name: 'list.gantt-mode',
+    icon: 'AreaChart',
+    path: '/gantt',
+    component: './GanttMode',
   },
   {
     name: 'list.table-list',
@@ -53,7 +53,7 @@ export default [
   },
   {
     path: '/',
-    redirect: '/welcome',
+    redirect: '/gantt',
   },
   {
     path: '*',
