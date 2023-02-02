@@ -16,7 +16,11 @@ namespace DisPatch.Model.Basis
         /// <summary>
         /// 口令
         /// </summary>
-        public string key { get; set; }
+        public string token { get; set; }
 
+        /// <summary>
+        /// 是否登录
+        /// </summary>
+        public bool isLogin { get; set; } = false;
     }
 }

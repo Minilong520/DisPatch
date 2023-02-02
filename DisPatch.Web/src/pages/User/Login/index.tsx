@@ -1,13 +1,14 @@
 import Footer from '@/components/Footer';
-import { login } from '@/services/ant-design-pro/api';
 import { LockOutlined, UserOutlined, } from '@ant-design/icons';
 import { LoginForm, ProFormCheckbox, ProFormText, } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
-import { FormattedMessage, history, SelectLang, useIntl, useModel, Helmet } from '@umijs/max';
-import { Alert, message, Tabs } from 'antd';
+import { FormattedMessage, history, SelectLang, useIntl, Helmet, useModel } from '@umijs/max';
+import { message, Tabs } from 'antd';
 import Settings from '../../../../config/defaultSettings';
 import React, { useState } from 'react';
-import { flushSync } from 'react-dom';
+import { http } from '@/commons/request';
+import { setLoginUser } from '@/commons/userinfo';
+import { getInitialState } from '@/app';
 
 /** 多国语 */
 const Lang = () => {
@@ -32,24 +33,8 @@ const Lang = () => {
   );
 };
 
-/** 登录提示信息 */
-const LoginMessage: React.FC<{
-  content: string;
-}> = ({ content }) => {
-  return (
-    <Alert
-      style={{ marginBottom: 24 }}
-      message={content}
-      type="error"
-      showIcon
-    />
-  );
-};
-
 const Login: React.FC = () => {
-  const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
-  const { initialState, setInitialState } = useModel('@@initialState');
 
   // 全局样式
   const containerClassName = useEmotionCss(() => {
@@ -64,70 +49,67 @@ const Login: React.FC = () => {
   });
 
   const intl = useIntl();
+  const { initialState, setInitialState } = useModel('@@initialState');
 
-  const fetchUserInfo = async () => {
-    const userInfo = await initialState?.fetchUserInfo?.();
-    if (userInfo) {
-      flushSync(() => {
-        setInitialState((s) => ({
-          ...s,
-          currentUser: userInfo,
-        }));
+  /** 登录 */
+  const handleSubmit = async (value: any) => {
+    http.post('/User/login', {
+      userNo: value.username,
+      password: value.password
+    }, {
+      headers: {
+        Authorization: 'login'
+      }
+    }).then(res => {
+      setLoginUser({
+        userInfo: res.userInfo,
+        token: res.token
       });
-    }
-  };
 
-  const handleSubmit = async (values: API.LoginParams) => {
-    try {
-      // 登录
-      const msg = await login({ ...values, type });
-      if (msg.status === 'ok') {        
-        // 登录成功
-        const defaultLoginSuccessMessage = intl.formatMessage({ id: 'pages.login.success', defaultMessage: '登录成功！', });
-        message.success(defaultLoginSuccessMessage);
+      //刷新用户配置
+      getInitialState().then((res2: any) => {
+        setInitialState({
+          currentUser: res2.currentUser,
+        })
+      });
+      console.log(initialState);
 
-        await fetchUserInfo();
+      //下次是否自动登录
+      if (value.autoLogin) {
+        window.localStorage.setItem('user-info', JSON.stringify(res));
+      }
 
-        const urlParams = new URL(window.location.href).searchParams;
-        history.push(urlParams.get('redirect') || '/');
-        return;
-      }            
-      setUserLoginState(msg);
-    } 
-    catch (error) {
-      // 登录失败
-      const defaultLoginFailureMessage = intl.formatMessage({ id: 'pages.login.failure', defaultMessage: '登录失败，请重试！', });
-      console.log(error);
-      message.error(defaultLoginFailureMessage);
-    }
-  };
-  const { status, type: loginType } = userLoginState;
+      /** 此方法会跳转到 redirect 参数所在的位置 */
+      console.log(history);
+      const lastHref = window.localStorage.getItem("last-href");
+      history.push(lastHref || '/gantt');
+
+      const defaultLoginSuccessMessage = intl.formatMessage({ id: 'pages.login.success', defaultMessage: '登录成功！', });
+      message.success(defaultLoginSuccessMessage);
+
+    }).catch(ex => {
+      // const defaultLoginFailureMessage = intl.formatMessage({ id: 'pages.login.failure', defaultMessage: '登录失败，请重试！', });
+      console.log(ex);
+      // message.error(defaultLoginFailureMessage + ":" + ex.message || ex.Message);
+    });
+  }
 
   return (
     <div className={containerClassName}>
       <Helmet><title>{intl.formatMessage({ id: 'menu.login', defaultMessage: '登录页', })}- {Settings.title}</title></Helmet>
       <Lang />
-      <div style={{flex: '1',padding: '32px 0',}}>
-        <LoginForm contentStyle={{minWidth: 280,maxWidth: '75vw',}}
+      <div style={{ flex: '1', padding: '32px 0', }}>
+        <LoginForm contentStyle={{ minWidth: 280, maxWidth: '75vw', }}
           logo={<img alt="logo" src="/logo.ico" />}
           title="DisPatch Project"
           //subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
           initialValues={{ autoLogin: true, }}
           onFinish={async (values) => { await handleSubmit(values as API.LoginParams); }}>
           <Tabs activeKey={type} onChange={setType} centered
-                 items={[
-                   { key: 'account', label: intl.formatMessage({ id: 'pages.login.accountLogin.tab', defaultMessage: '账户密码登录', }) }              
-                  ]}/>
+            items={[
+              { key: 'account', label: intl.formatMessage({ id: 'pages.login.accountLogin.tab', defaultMessage: '账户密码登录', }) }
+            ]} />
 
-          {status === 'error' && loginType === 'account' && (
-            <LoginMessage
-              content={intl.formatMessage({
-                id: 'pages.login.accountLogin.errorMessage',
-                defaultMessage: '账户或密码错误(admin/ant.design)',
-              })}
-            />
-          )}
-          
           {type === 'account' && (
             <>
               <ProFormText
@@ -177,8 +159,8 @@ const Login: React.FC = () => {
             </>
           )}
 
-          <div style={{marginBottom: 24,}}>
-            <ProFormCheckbox noStyle name="autoLogin"><FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" /></ProFormCheckbox>            
+          <div style={{ marginBottom: 24, }}>
+            <ProFormCheckbox noStyle name="autoLogin"><FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" /></ProFormCheckbox>
           </div>
         </LoginForm>
       </div>

@@ -26,12 +26,10 @@ namespace DisPatch.Implements.Interfaces
 
             catch (Tip_Basis t)
             {
-                resContent.code = Model.Enum.ReqCode.tip;
-                ExceptionExecute(reqInfo, t);
+                ExceptionTipExcute(reqInfo, t);
             }
             catch (Exception e)
             {
-                resContent.code = Model.Enum.ReqCode.error;
                 ExceptionExecute(reqInfo, e);
             }
             return resContent;
@@ -51,7 +49,7 @@ namespace DisPatch.Implements.Interfaces
             // 初始化结果
             resContent = new RES_Basis()
             {
-                isSucess = true,
+                isSuccess = true,
                 code = Model.Enum.ReqCode.success
             };
         }
@@ -85,7 +83,23 @@ namespace DisPatch.Implements.Interfaces
         /// <param name="e"></param>
         public virtual void ExceptionExecute(dynamic reqInfo, Exception e)
         {
+            resContent.code = Model.Enum.ReqCode.error;
+            resContent.isSuccess = false;
             resContent.message = e.Message;
+        }
+
+        /// <summary>
+        /// 调用API提示
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="quartzInfo"></param>
+        /// <param name="taskHistory"></param>
+        /// <param name="e"></param>
+        public virtual void ExceptionTipExcute(dynamic reqInfo, Exception e)
+        {
+            resContent.code = Model.Enum.ReqCode.tip;
+            resContent.isSuccess = false;
+            resContent.message = ((DisPatch.Model.Basis.Tip_Basis)e).Message;
         }
     }
 }

@@ -13,8 +13,8 @@ export default class GanttMode extends Component<any, any> {
     constructor(props: any) {
         super(props);
 
-        let sel = this;
-        sel.state = {
+        //let sel = this;
+        this.state = {
             loading: false,         // 全局loading
             viewType: "Gantt",      // 显示方式
             searchInfo: {},         // 查询条件
@@ -27,10 +27,10 @@ export default class GanttMode extends Component<any, any> {
                         currentDateIndicator: true,
                         tickPixelInterval: 70,
                         grid: { borderWidth: 1, cellHeight: 35, borderColor: 'rgba(0,0,0,0.3)', },
-                        labels: { align: 'center', style: { "font-weight": "bold", }, formatter: function () { return `${dayjs(sel.value).format('M月D日')}  `; } },
+                        labels: { align: 'center', style: { "font-weight": "bold", }, formatter: function () { return `${dayjs(this.value).format('M月D日')}  `; } },
                     },
                     {
-                        labels: { align: 'center', style: { "font-weight": "bold", "font-size": "20px", "text-anchor": "middle", "alignment-baseline": "central" }, formatter: function () { return `${dayjs(sel.value).format('YYYY年M月')}`; } },
+                        labels: { align: 'center', style: { "font-weight": "bold", "font-size": "20px", "text-anchor": "middle", "alignment-baseline": "central" }, formatter: function () { return `${dayjs(this.value).format('YYYY年M月')}`; } },
                     }],
                 yAxis: [
                     {
@@ -42,23 +42,23 @@ export default class GanttMode extends Component<any, any> {
                                     title: { text: '设备号', style: { "font-weight": "bold", } },
                                     labels: {
                                         formatter: function () {
-                                            if (sel.point) { return sel.point.equipmentNo; }
-                                            else if (sel.value !== undefined) { return "第" + (sel.value + 1) + "行暂无数据"; }
+                                            if (this.point) { return this.point.equipmentNo; }
+                                            else if (this.value !== undefined) { return "第" + (this.value + 1) + "行暂无数据"; }
                                             else { return "/"; }
                                         }
                                     }
                                 },
                             ]
-                        }                       
+                        }
                     }],
                 tooltip: {
                     formatter: function () {
-                        return `<div> 设备: ${sel.point?.equipmentNo}<br/>
-                                      生产批: ${sel.point?.lotNo}<br/>
-                                      作业站: ${sel.point?.opNo}<br/>
-                                      开始时间: ${dayjs(sel.point?.start).format('YYYY-MM-DD')}<br/>
-                                      结束时间: ${dayjs(sel.point?.end).format('YYYY-MM-DD')}<br/>
-                                </div>`
+                        return `<div> 设备: ${this.point?.equipmentNo}<br/>
+                      生产批: ${this.point?.lotNo}<br/>
+                      作业站: ${this.point?.opNo}<br/>
+                      开始时间: ${dayjs(this.point?.start).format('YYYY-MM-DD')}<br/>
+                      结束时间: ${dayjs(this.point?.end).format('YYYY-MM-DD')}<br/>
+                </div>`
                     }
                 },
                 series: [{
@@ -136,6 +136,82 @@ export default class GanttMode extends Component<any, any> {
             }
         });
 
+        // let _options = {
+        //     // title: { text: '快速派工-Gantt' },
+        //     xAxis: [
+        //         {
+        //             currentDateIndicator: true,
+        //             tickPixelInterval: 70,
+        //             grid: { borderWidth: 1, cellHeight: 35, borderColor: 'rgba(0,0,0,0.3)', },
+        //             labels: { align: 'center', style: { "font-weight": "bold", }, formatter: function () { return `${dayjs(this.value).format('M月D日')}  `; } },
+        //         },
+        //         {
+        //             labels: { align: 'center', style: { "font-weight": "bold", "font-size": "20px", "text-anchor": "middle", "alignment-baseline": "central" }, formatter: function () { return `${dayjs(this.value).format('YYYY年M月')}`; } },
+        //         }],
+        //     yAxis: [
+        //         {
+        //             type: 'category',
+        //             grid: {
+        //                 enabled: true, borderColor: 'rgba(0,0,0,0.3)', borderWidth: 1,
+        //                 columns: [
+        //                     {
+        //                         title: { text: '设备号', style: { "font-weight": "bold", } },
+        //                         labels: {
+        //                             formatter: function () {
+        //                                 if (this.point) { return this.point.equipmentNo; }
+        //                                 else if (this.value !== undefined) { return "第" + (this.value + 1) + "行暂无数据"; }
+        //                                 else { return "/"; }
+        //                             }
+        //                         }
+        //                     },
+        //                 ]
+        //             }
+        //         }],
+        //     tooltip: {
+        //         formatter: function () {
+        //             return `<div> 设备: ${this.point?.equipmentNo}<br/>
+        //                           生产批: ${this.point?.lotNo}<br/>
+        //                           作业站: ${this.point?.opNo}<br/>
+        //                           开始时间: ${dayjs(this.point?.start).format('YYYY-MM-DD')}<br/>
+        //                           结束时间: ${dayjs(this.point?.end).format('YYYY-MM-DD')}<br/>
+        //                     </div>`
+        //         }
+        //     },
+        //     series: [{
+        //         data: [], name: 'gantt', cursor: 'move', type: "gantt",
+        //     }],
+        //     plotOptions: {
+        //         series: {
+        //             animation: false,     // Do not animate dependency connectors
+        //             dragDrop: {
+        //                 draggableX: true,          // 横向拖拽              
+        //                 draggableY: true,          // 纵向拖拽
+        //                 dragMinY: 0,               // 纵向拖拽下限
+        //                 dragMaxY: 9,               // 纵向拖拽上限
+        //                 dragPrecisionX: 86400000,   // 横向拖拽精度，单位毫秒
+        //                 //dragPrecisionX: 'day',
+        //                 liveRedraw: false,
+        //             },
+        //             dataLabels: {
+        //                 enabled: true,
+        //                 format: '{point.job}',
+        //                 style: { cursor: 'default', pointerEvents: 'none' }
+        //             },
+        //             allowPointSelect: true,
+        //             point: {
+        //                 events: {
+        //                     dragStart: this.chartdragStart,
+        //                     drag: this.chartdrag,
+        //                     drop: this.chartdrop,
+        //                     select: this.chartSelect
+        //                 }
+        //             }
+        //         }
+        //     },
+        //     exporting: { sourceWidth: 1000 },
+        //     credits: { enabled: false },
+        // };
+        // this.setState({ options: _options });
     }
 
     /** 绑定数据 */
@@ -176,15 +252,15 @@ export default class GanttMode extends Component<any, any> {
             let list = [];
 
             //找到原数据 并 修改
-            list = this.state.ganttData.map((item: any) => {
-                item.isChange = true;
+            list = this.state.ganttData.map((item: any) => {               
                 if (item.uid === e.target.uid) {
+                    item.isChange = true;                    
                     if (e.newPoint.y >= 0) {
                         console.log("行变换【" + item.y + "】【" + e.newPoint.y + "】");
-                        console.log("设备变换【" + item.equipmentNo + "】【" + this.state.equipmentNoList[e.newPoint.y] + "】");
+                        console.log("设备变换【" + item.equipmentNo + "】【" + this.state.eqpInfo[e.newPoint.y] + "】");
 
                         //item.y = e.newPoint.y
-                        item.equipmentNo = this.state.equipmentNoList[e.newPoint.y]
+                        item.equipmentNo = this.state.eqpInfo[e.newPoint.y]
                     }
                     return item
                 }
@@ -195,7 +271,7 @@ export default class GanttMode extends Component<any, any> {
 
             //更新gantt和表
             this.setState({ ganttData: list });
-            this.chartBindData(list, this.state.equipmentNoList);
+            this.chartBindData(list, this.state.eqpInfo);
         }
     }
 

@@ -12,7 +12,7 @@ namespace DisPatch.Model.Basis
         /// <summary>
         /// 是否调用成功
         /// </summary>
-        public bool isSucess { get; set; } = true;
+        public bool isSuccess { get; set; } = true;
 
         /// <summary>
         /// 调用代码

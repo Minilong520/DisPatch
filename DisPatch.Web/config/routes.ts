@@ -19,41 +19,20 @@ export default [
         name: 'login',
         path: '/user/login',
         component: './User/Login',
-      },
+      }
     ],
   }, 
-  // {
-  //   path: '/admin',
-  //   name: 'admin',
-  //   icon: 'crown',
-  //   access: 'canAdmin',
-  //   routes: [
-  //     {
-  //       path: '/admin',
-  //       redirect: '/admin/sub-page',
-  //     },
-  //     {
-  //       path: '/admin/sub-page',
-  //       name: 'sub-page',
-  //       component: './Admin',
-  //     },
-  //   ],
-  // },
   {
     name: 'list.gantt-mode',
     icon: 'AreaChart',
     path: '/gantt',
     component: './GanttMode',
-  },
-  {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
+    access: 'isLogin',
   },
   {
     path: '/',
     redirect: '/gantt',
+    access: 'isLogin',
   },
   {
     path: '*',

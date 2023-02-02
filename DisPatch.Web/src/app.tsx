@@ -15,38 +15,56 @@ const loginPath = '/user/login';
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
- * */
-export async function getInitialState(): Promise<{
-  settings?: Partial<LayoutSettings>;
-  currentUser?: API.CurrentUser;
-  loading?: boolean;
-  fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
-}> {
-  const fetchUserInfo = async () => {
-    try {
-      const msg = await queryCurrentUser({
-        skipErrorHandler: true,
-      });
-      return msg.data;
-    } catch (error) {
-      history.push(loginPath);
+//  * */
+// export async function getInitialState(): Promise<{
+//   settings?: Partial<LayoutSettings>;
+//   currentUser?: API.CurrentUser;
+//   loading?: boolean;
+//   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+// }> 
+// {
+//   const fetchUserInfo = async () => {
+//     try {
+//       const msg = await queryCurrentUser({ skipErrorHandler: true, });
+//       return msg.data;
+//     } 
+//     catch (error) {
+//       history.push(loginPath);
+//     }
+//     return undefined;
+//   };
+
+//   // 如果不是登录页面，执行
+//   const { location } = history;
+//   if (location.pathname !== loginPath) {
+//     const currentUser = await fetchUserInfo();
+//     return { fetchUserInfo, currentUser, settings: defaultSettings as Partial<LayoutSettings>, };
+//   }
+
+//   return { fetchUserInfo, settings: defaultSettings as Partial<LayoutSettings>, };
+// }
+
+export async function getInitialState() {
+  // const { user, setUser } = useModel('userModel');
+  let user = sessionStorage.getItem('current-user')
+  let currentUser = user ? JSON.parse(user) : {}
+  //加载自动登录信息
+  if(!currentUser.token){
+    let tmp = localStorage.getItem('user-info');
+    if(tmp){
+      let u = JSON.parse(tmp);
+      if(u && u.token){
+        currentUser = {
+          token:u.token,
+          userInfo:u.userInfo
+        }
+        sessionStorage.setItem('current-user',JSON.stringify(currentUser))
+      }
     }
-    return undefined;
-  };
-  // 如果不是登录页面，执行
-  const { location } = history;
-  if (location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
-    return {
-      fetchUserInfo,
-      currentUser,
-      settings: defaultSettings as Partial<LayoutSettings>,
-    };
   }
   return {
-    fetchUserInfo,
-    settings: defaultSettings as Partial<LayoutSettings>,
-  };
+    currentUser:currentUser,
+  }
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
@@ -97,18 +115,13 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
           <SettingDrawer
             disableUrlParams
             enableDarkTheme
-            settings={initialState?.settings}
-            onSettingChange={(settings) => {
-              setInitialState((preInitialState) => ({
-                ...preInitialState,
-                settings,
-              }));
-            }}
+            //settings={initialState?.settings}
+            //onSettingChange={(settings) => { setInitialState((preInitialState) => ({ ...preInitialState, settings, })); }}
           />
         </>
       );
     },
-    ...initialState?.settings,
+    //...initialState?.settings,
   };
 };
 
