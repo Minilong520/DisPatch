@@ -19,8 +19,8 @@ namespace DisPatch.Model.Basis
         public string token { get; set; }
 
         /// <summary>
-        /// 是否登录
+        /// 当前方法是否是登录
         /// </summary>
-        public bool isLogin { get; set; } = false;
+        public bool isLogin { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using DisPatch.Common.Helpers;
 
 namespace DisPatch.DB.Implements
 {
@@ -29,7 +30,7 @@ namespace DisPatch.DB.Implements
                 connStr = _connStr;
 
             if (string.IsNullOrEmpty(connStr))
-                connStr = ConfigurationManager.ConnectionStrings["DBConnect"].ConnectionString;
+                connStr = AppsettingHelper.ReadAppSettings("DB", "Connect");
 
             return new SqlConnection(connStr);
         }

@@ -12,6 +12,6 @@ namespace DisPatch.Model.User
         /// <summary>
         /// 密码
         /// </summary>
-        public string password { get; set; }        
+        public string password { get; set; }
     }
 }

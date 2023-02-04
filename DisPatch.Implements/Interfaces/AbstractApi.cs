@@ -24,12 +24,16 @@ namespace DisPatch.Implements.Interfaces
                 AfterExecute(reqInfo);
             }
 
-            catch (Tip_Basis t)
+            catch (ExceptionTip_Basis t)
             {
-                ExceptionTipExcute(reqInfo, t);
+                resContent.code = Model.Enum.ReqCode.tip;
+                resContent.isSuccess = false;
+                TipExecute(reqInfo, t);
             }
             catch (Exception e)
             {
+                resContent.code = Model.Enum.ReqCode.error;
+                resContent.isSuccess = false;
                 ExceptionExecute(reqInfo, e);
             }
             return resContent;
@@ -44,7 +48,7 @@ namespace DisPatch.Implements.Interfaces
         public virtual void BeforeExecute(dynamic reqInfo)
         {
             // 检查授权
-            AuthorizeHelper.CheckAuthorize(reqInfo);
+            // AuthorizeHelper.CheckAuthorize(reqInfo);
 
             // 初始化结果
             resContent = new RES_Basis()
@@ -77,29 +81,21 @@ namespace DisPatch.Implements.Interfaces
         /// <summary>
         /// 调用API异常
         /// </summary>
-        /// <param name="task"></param>
-        /// <param name="quartzInfo"></param>
-        /// <param name="taskHistory"></param>
+        /// <param name="reqInfo"></param>
         /// <param name="e"></param>
         public virtual void ExceptionExecute(dynamic reqInfo, Exception e)
         {
-            resContent.code = Model.Enum.ReqCode.error;
-            resContent.isSuccess = false;
             resContent.message = e.Message;
         }
 
         /// <summary>
         /// 调用API提示
         /// </summary>
-        /// <param name="task"></param>
-        /// <param name="quartzInfo"></param>
-        /// <param name="taskHistory"></param>
+        /// <param name="reqInfo"></param>
         /// <param name="e"></param>
-        public virtual void ExceptionTipExcute(dynamic reqInfo, Exception e)
+        public virtual void TipExecute(dynamic reqInfo, Exception e)
         {
-            resContent.code = Model.Enum.ReqCode.tip;
-            resContent.isSuccess = false;
-            resContent.message = ((DisPatch.Model.Basis.Tip_Basis)e).Message;
+            resContent.message = ((ExceptionTip_Basis)e).Message;
         }
     }
 }

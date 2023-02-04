@@ -1,10 +1,13 @@
-﻿using DisPatch.Implements.Gantt.Services;
+﻿using DisPatch.Common.Authentication;
+using DisPatch.Implements.Gantt.Services;
 using DisPatch.Model.Basis;
 using DisPatch.Model.Gantt;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DisPatch.Api.Controllers
 {
+    [Authorize(AuthenticationSchemes = DisPatchAuthOptions.Scheme)]
     [ApiController]
     [Route("[controller]")]
     public class GanttController : Controller

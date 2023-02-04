@@ -1,4 +1,5 @@
-﻿using DisPatch.DB.Factories;
+﻿using DisPatch.Common.Helpers;
+using DisPatch.DB.Factories;
 using DisPatch.Model.Enum;
 using DisPatch.Model.Gantt;
 using System;
@@ -38,7 +39,8 @@ namespace DisPatch.Implements.Gantt.Utills
 
             sbSQL.AppendFormat(" order by EquipmentNo ");
 
-            var repo = DBFactory.GetRepository((DBType)Enum.Parse(typeof(DBType), System.Configuration.ConfigurationManager.AppSettings["GanttConnectType"].ToString()));
+            string dbType = AppsettingHelper.ReadAppSettings("DB", "Type") ?? "sqlserver";
+            var repo = DBFactory.GetRepository((DBType)Enum.Parse(typeof(DBType), dbType.ToLower()));
 
             List<DTO_GanttInfo> result = repo.QueryRecords<DTO_GanttInfo>(sbSQL.ToString()).ToList();
             List<string> strEqp = new List<string>();

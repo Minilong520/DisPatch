@@ -26,5 +26,15 @@ namespace DisPatch.Api.Controllers
             return new SLogin().Execute(reqLogin);
         }
 
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("loginout")]
+        public RES_Basis LoginOut(REQ_Login reqLogin)
+        {
+            return new SLoginOut().Execute(reqLogin);
+        }
     }
 }

@@ -105,7 +105,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Model\\DisPatch.Model.csproj": {
+                "projectPath": "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Model\\DisPatch.Model.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -117,6 +121,20 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "System.Management": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "System.Runtime.Caching": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -164,6 +182,9 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Common\\DisPatch.Common.csproj": {
+                "projectPath": "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Common\\DisPatch.Common.csproj"
+              },
               "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Model\\DisPatch.Model.csproj": {
                 "projectPath": "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Model\\DisPatch.Model.csproj"
               }

@@ -1,14 +1,14 @@
 import Footer from '@/components/Footer';
+//import { login } from '@/services/ant-design-pro/api';
 import { LockOutlined, UserOutlined, } from '@ant-design/icons';
 import { LoginForm, ProFormCheckbox, ProFormText, } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
-import { FormattedMessage, history, SelectLang, useIntl, Helmet, useModel } from '@umijs/max';
+import { FormattedMessage, history, SelectLang, useIntl, useModel, Helmet } from '@umijs/max';
 import { message, Tabs } from 'antd';
 import Settings from '../../../../config/defaultSettings';
 import React, { useState } from 'react';
-import { http } from '@/commons/request';
-import { setLoginUser } from '@/commons/userinfo';
-import { getInitialState } from '@/app';
+import { flushSync } from 'react-dom';
+import { userLogin } from '@/services/request/userinfo';
 
 /** 多国语 */
 const Lang = () => {
@@ -33,8 +33,10 @@ const Lang = () => {
   );
 };
 
+
 const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
+  const { initialState, setInitialState } = useModel('@@initialState');
 
   // 全局样式
   const containerClassName = useEmotionCss(() => {
@@ -49,50 +51,38 @@ const Login: React.FC = () => {
   });
 
   const intl = useIntl();
-  const { initialState, setInitialState } = useModel('@@initialState');
 
-  /** 登录 */
-  const handleSubmit = async (value: any) => {
-    http.post('/User/login', {
-      userNo: value.username,
-      password: value.password
-    }, {
-      headers: {
-        Authorization: 'login'
-      }
-    }).then(res => {
-      setLoginUser({
-        userInfo: res.userInfo,
-        token: res.token
-      });
+  const fetchUserInfo = async () => {
+    const userInfo = await initialState?.fetchUserInfo?.();
+    if (userInfo) { flushSync(() => { setInitialState((s) => ({ ...s, currentUser: userInfo, })); }); }
+  };
 
-      //刷新用户配置
-      getInitialState().then((res2: any) => {
-        setInitialState({
-          currentUser: res2.currentUser,
-        })
-      });
-      console.log(initialState);
+  const handleSubmit = async (values: API.LoginParams) => {
+    try {
+      // 调用登录接口
+      await userLogin({ ...values, type });
 
-      //下次是否自动登录
-      if (value.autoLogin) {
-        window.localStorage.setItem('user-info', JSON.stringify(res));
-      }
+      // 保存用户信息      
+      await fetchUserInfo();
 
-      /** 此方法会跳转到 redirect 参数所在的位置 */
-      console.log(history);
-      const lastHref = window.localStorage.getItem("last-href");
-      history.push(lastHref || '/gantt');
-
+      // 显示提示信息
       const defaultLoginSuccessMessage = intl.formatMessage({ id: 'pages.login.success', defaultMessage: '登录成功！', });
       message.success(defaultLoginSuccessMessage);
 
-    }).catch(ex => {
-      // const defaultLoginFailureMessage = intl.formatMessage({ id: 'pages.login.failure', defaultMessage: '登录失败，请重试！', });
-      console.log(ex);
-      // message.error(defaultLoginFailureMessage + ":" + ex.message || ex.Message);
-    });
-  }
+      // 页面跳转
+      const urlParams = new URL(window.location.href).searchParams;
+      history.push(urlParams.get('redirect') || '/');
+      return;
+
+      //setUserLoginState(msg);
+    }
+    catch (error) {
+      // 登录失败
+      //const defaultLoginFailureMessage = intl.formatMessage({ id: 'pages.login.failure', defaultMessage: '登录失败，请重试！', });
+      console.log(error);
+      //message.error(defaultLoginFailureMessage);
+    }
+  };
 
   return (
     <div className={containerClassName}>

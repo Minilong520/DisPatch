@@ -7,3 +7,5 @@ DisPatch.Implements/obj/Debug/
 DisPatch.Model/obj/Debug/
 .vs/ProjectEvaluation/dispatch.metadata.v2
 .vs/ProjectEvaluation/dispatch.projects.v2
+*.dll
+*.pdb

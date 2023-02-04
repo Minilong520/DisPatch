@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DisPatch.Common\DisPatch.Common.csproj" />
     <ProjectReference Include="..\DisPatch.Model\DisPatch.Model.csproj" />
   </ItemGroup>
 

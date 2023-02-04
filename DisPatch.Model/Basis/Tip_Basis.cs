@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace DisPatch.Model.Basis
 {
-    public class Tip_Basis : Exception
+    public class ExceptionTip_Basis : Exception
     {
         public int code;
         public new string Message;
         public Exception original_exception;
 
-        public Tip_Basis(string msg)
+        public ExceptionTip_Basis(string msg)
         {
             Message = msg;
         }

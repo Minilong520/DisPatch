@@ -1,14 +1,15 @@
-import { outLogin } from '@/services/ant-design-pro/api';
+//import { outLogin } from '@/services/ant-design-pro/api';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { history, useModel } from '@umijs/max';
-import { Avatar, Spin } from 'antd';
+import { Avatar, message, Spin } from 'antd';
 import { setAlpha } from '@ant-design/pro-components';
 import { stringify } from 'querystring';
 import type { MenuInfo } from 'rc-menu/lib/interface';
 import React, { useCallback } from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
+import { userLoginOut } from '@/services/request/userinfo';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -51,7 +52,7 @@ const AvatarLogo = () => {
     };
   });
 
-  return <Avatar size="small" className={avatarClassName} src={currentUser?.avatar} alt="avatar" />;
+  return <Avatar size="small" className={avatarClassName} src={currentUser?.avatar} icon={currentUser?.avatar ?? <UserOutlined />} alt="avatar" />;
 };
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
@@ -59,12 +60,19 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
    * 退出登录，并且将当前的 url 保存
    */
   const loginOut = async () => {
-    await outLogin();
+    // 调用登出接口
+    await userLoginOut();
+
+    // 清除用户信息
+    // setInitialState((s) => ({ ...s, currentUser: undefined }));
+
+    // 显示提示信息
+    message.success("退出登录成功！");
+
+    // 页面跳转
     const { search, pathname } = window.location;
     const urlParams = new URL(window.location.href).searchParams;
-    /** 此方法会跳转到 redirect 参数所在的位置 */
     const redirect = urlParams.get('redirect');
-    // Note: There may be security issues, please note
     if (window.location.pathname !== '/user/login' && !redirect) {
       history.replace({
         pathname: '/user/login',
@@ -74,6 +82,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       });
     }
   };
+
   const actionClassName = useEmotionCss(({ token }) => {
     return {
       display: 'flex',
@@ -89,8 +98,8 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       },
     };
   });
-  const { initialState, setInitialState } = useModel('@@initialState');
 
+  const { initialState, setInitialState } = useModel('@@initialState');
   const onMenuClick = useCallback(
     (event: MenuInfo) => {
       const { key } = event;

@@ -35,7 +35,7 @@ namespace DisPatch.Implements.Gantt.Utills
             }
             else
             {
-                throw new Tip_Basis("甘特信息为空，无法修改！");
+                throw new ExceptionTip_Basis("甘特信息为空，无法修改！");
             }
         }
     }

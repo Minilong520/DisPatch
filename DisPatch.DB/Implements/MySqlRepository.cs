@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using DisPatch.Common.Helpers;
 using DisPatch.DB.Interfaces;
 using MySql.Data.MySqlClient;
 using System;
@@ -29,7 +30,7 @@ namespace DisPatch.DB.Implements
                 connStr = _connStr;
 
             if (string.IsNullOrEmpty(connStr))
-                connStr = ConfigurationManager.ConnectionStrings["DBConnect"].ConnectionString;
+                connStr = AppsettingHelper.ReadAppSettings("DB", "Connect");
 
             return new MySqlConnection(connStr);
         }

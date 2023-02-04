@@ -18,14 +18,14 @@ D:\GitHub\Gantt\DisPatch\DisPatch.DB\bin\Debug\net6.0\DisPatch.Model.pdb
 D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\DisPatch.DB.deps.json
 D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\DisPatch.DB.dll
 D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\DisPatch.DB.pdb
-D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\Debug\net6.0\DisPatch.DB.deps.json
-D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\Debug\net6.0\DisPatch.DB.dll
-D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\Debug\net6.0\DisPatch.DB.pdb
 D:\GitHub\Gantt\DisPatch\DisPatch.DB\obj\Debug\net6.0\DisPatch.DB.csproj.AssemblyReference.cache
 D:\GitHub\Gantt\DisPatch\DisPatch.DB\obj\Debug\net6.0\DisPatch.DB.GeneratedMSBuildEditorConfig.editorconfig
 D:\GitHub\Gantt\DisPatch\DisPatch.DB\obj\Debug\net6.0\DisPatch.DB.AssemblyInfoInputs.cache
 D:\GitHub\Gantt\DisPatch\DisPatch.DB\obj\Debug\net6.0\DisPatch.DB.AssemblyInfo.cs
 D:\GitHub\Gantt\DisPatch\DisPatch.DB\obj\Debug\net6.0\DisPatch.DB.csproj.CoreCompileInputs.cache
+D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\Debug\net6.0\DisPatch.DB.deps.json
+D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\Debug\net6.0\DisPatch.DB.dll
+D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\Debug\net6.0\DisPatch.DB.pdb
 D:\GitHub\Gantt\DisPatch\DisPatch.DB\obj\Debug\net6.0\DisPatch.DB.csproj.CopyComplete
 D:\GitHub\Gantt\DisPatch\DisPatch.DB\obj\Debug\net6.0\DisPatch.DB.dll
 D:\GitHub\Gantt\DisPatch\DisPatch.DB\obj\Debug\net6.0\refint\DisPatch.DB.dll

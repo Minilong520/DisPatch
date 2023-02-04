@@ -1,4 +1,6 @@
-﻿using DisPatch.Model.Basis;
+﻿using DisPatch.Common.Authentication;
+using DisPatch.Common.Helpers;
+using DisPatch.Model.Basis;
 using DisPatch.Model.User;
 using System;
 using System.Collections.Generic;
@@ -12,23 +14,41 @@ namespace DisPatch.Implements.User.Utils
     {
         public static RES_Login Login(REQ_Login userLogin)
         {
-            if (userLogin.userNo == "DS")
+            // 1.登录检查授权
+            AuthorizeHelper.CheckAuthorize(userLogin.userNo);
+
+            // 2.验证账密
+            if (userLogin.userNo.StartsWith(DisPatchAuthOptions.UserNo))
             {
-                if (userLogin.password == "DS")
+                if (userLogin.userNo == userLogin.password)
+                {
+                    string inSecretCode = $"{userLogin.userNo}:{userLogin.password}";
+                    var bytes = Encoding.GetEncoding("utf-8").GetBytes(inSecretCode);
+                    string token = $"{DisPatchAuthOptions.Scheme} {Convert.ToBase64String(bytes)}";
+
+                    // 3.保存登录信息
+                    AuthorizeHelper.SetUserAuthorize(token, userLogin.userNo);
+
                     return new RES_Login()
                     {
-                        token = "DS,DS",
+                        token = token,
                         userInfo = new DTO_UserInfo()
                         {
+                            userid = userLogin.userNo,
+                            //avatar = "<SmileTwoTone />",
+                            name = "MiniLong",
                             permissions = Model.Enum.AccessType.Admin
-                        }                        
+                        }
                     };
+                }
                 else
-                    throw new Tip_Basis("用户登录密码异常！");
+                {
+                    throw new ExceptionTip_Basis("用户登录密码异常！");
+                }
             }
             else
             {
-                throw new Tip_Basis($"不存在用户【{userLogin.userNo}】");
+                throw new ExceptionTip_Basis($"不存在用户【{userLogin.userNo}】");
             }
         }
     }

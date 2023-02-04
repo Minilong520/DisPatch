@@ -12,7 +12,7 @@ namespace DisPatch.Model.User
         /// <summary>
         /// 用户ID
         /// </summary>
-        public string id { get; set; }
+        public string userid { get; set; }
 
         /// <summary>
         /// 用户名
