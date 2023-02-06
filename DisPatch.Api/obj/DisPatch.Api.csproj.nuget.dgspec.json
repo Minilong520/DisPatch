@@ -32,11 +32,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Common\\DisPatch.Common.csproj": {
+                "projectPath": "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Common\\DisPatch.Common.csproj"
+              },
               "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Implements\\DisPatch.Implements.csproj": {
                 "projectPath": "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Implements\\DisPatch.Implements.csproj"
-              },
-              "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Model\\DisPatch.Model.csproj": {
-                "projectPath": "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Model\\DisPatch.Model.csproj"
               }
             }
           }

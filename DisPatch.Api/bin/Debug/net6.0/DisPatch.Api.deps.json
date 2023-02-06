@@ -8,8 +8,8 @@
     ".NETCoreApp,Version=v6.0": {
       "DisPatch.Api/1.0.0": {
         "dependencies": {
+          "DisPatch.Common": "1.0.0",
           "DisPatch.Implements": "1.0.0",
-          "DisPatch.Model": "1.0.0",
           "Swashbuckle.AspNetCore": "6.2.3"
         },
         "runtime": {

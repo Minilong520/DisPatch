@@ -1,14 +1,14 @@
 D:\GitHub\Gantt\DisPatch\DisPatch.Common\bin\Debug\net6.0\DisPatch.Common.deps.json
 D:\GitHub\Gantt\DisPatch\DisPatch.Common\bin\Debug\net6.0\DisPatch.Common.dll
 D:\GitHub\Gantt\DisPatch\DisPatch.Common\bin\Debug\net6.0\DisPatch.Common.pdb
+D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\DisPatch.Common.deps.json
+D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\DisPatch.Common.dll
+D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\DisPatch.Common.pdb
 D:\GitHub\Gantt\DisPatch\DisPatch.Common\obj\Debug\net6.0\DisPatch.Common.csproj.AssemblyReference.cache
 D:\GitHub\Gantt\DisPatch\DisPatch.Common\obj\Debug\net6.0\DisPatch.Common.GeneratedMSBuildEditorConfig.editorconfig
 D:\GitHub\Gantt\DisPatch\DisPatch.Common\obj\Debug\net6.0\DisPatch.Common.AssemblyInfoInputs.cache
 D:\GitHub\Gantt\DisPatch\DisPatch.Common\obj\Debug\net6.0\DisPatch.Common.AssemblyInfo.cs
 D:\GitHub\Gantt\DisPatch\DisPatch.Common\obj\Debug\net6.0\DisPatch.Common.csproj.CoreCompileInputs.cache
-D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\Debug\net6.0\DisPatch.Common.deps.json
-D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\Debug\net6.0\DisPatch.Common.dll
-D:\GitHub\Gantt\DisPatch\DisPatch.Api\bin\Debug\net6.0\Debug\net6.0\DisPatch.Common.pdb
 D:\GitHub\Gantt\DisPatch\DisPatch.Common\obj\Debug\net6.0\DisPatch.Common.csproj.CopyComplete
 D:\GitHub\Gantt\DisPatch\DisPatch.Common\obj\Debug\net6.0\DisPatch.Common.dll
 D:\GitHub\Gantt\DisPatch\DisPatch.Common\obj\Debug\net6.0\refint\DisPatch.Common.dll

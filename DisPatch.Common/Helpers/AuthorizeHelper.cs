@@ -13,10 +13,13 @@ namespace DisPatch.Common.Helpers
         private static LicenseHelper licenseHelper = new LicenseHelper();
 
         /// <summary>
-        /// 检查授权
+        /// 检查授权（登录使用）
         /// </summary>
         public static void CheckAuthorize(string userNo)
         {
+            if (licenseHelper == null)
+                licenseHelper = new LicenseHelper();
+
             // 限制服务器MAC地址 + 时间限制
             string mac = WindowsUtil.GetMacAddress();
             if (mac != licenseHelper.mac)
@@ -26,7 +29,7 @@ namespace DisPatch.Common.Helpers
 
             if (DateTime.Now > licenseHelper.datetime)
             {
-                throw new Exception("当前服务器授权时间到期！");
+                throw new Exception($"当前服务器授权时间【{licenseHelper.datetime.ToString("yyyy-MM-dd")}】到期！");
             }
 
             var userCache = CacheUtil.GetCache(userNo);
@@ -37,7 +40,7 @@ namespace DisPatch.Common.Helpers
         }
 
         /// <summary>
-        /// 检查用户授权
+        /// 检查用户授权（授权API使用）
         /// </summary>
         /// <param name="reqInfo"></param>
         public static void CheckUserAuthorize(string token, string[] authVal)
@@ -58,7 +61,7 @@ namespace DisPatch.Common.Helpers
         }
 
         /// <summary>
-        /// 保存用户授权
+        /// 保存用户授权（登录使用）
         /// </summary>
         /// <param name="reqInfo"></param>
         public static void SetUserAuthorize(string token, string userNo)
@@ -70,6 +73,9 @@ namespace DisPatch.Common.Helpers
             }
             else
             {
+                if (licenseHelper == null)
+                    licenseHelper = new LicenseHelper();
+
                 if (Convert.ToInt32(userCache) >= licenseHelper.count)
                 {
                     throw new Exception($"当前服务器用户数【{licenseHelper.count}】超限！");

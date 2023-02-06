@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>ico\DisPatchApi.ico</ApplicationIcon>
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DisPatch.Common\DisPatch.Common.csproj" />
     <ProjectReference Include="..\DisPatch.Implements\DisPatch.Implements.csproj" />
-    <ProjectReference Include="..\DisPatch.Model\DisPatch.Model.csproj" />
   </ItemGroup>
 
 </Project>

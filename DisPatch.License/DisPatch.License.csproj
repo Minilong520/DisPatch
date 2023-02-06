@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <BaseOutputPath>..\DisPatch.Api\bin\</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DisPatch.Common\DisPatch.Common.csproj" />
+    <ProjectReference Include="..\DisPatch.Model\DisPatch.Model.csproj" />
+  </ItemGroup>
+
+</Project>

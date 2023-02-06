@@ -392,7 +392,7 @@ export default class GanttMode extends Component<any, any> {
             <PageContainer>
                 <Spin spinning={this.state.loading}>
                     {/* 查询条件 */}
-                    <Row gutter={[24, 24]} style={{ backgroundColor: '#FDFFFF', paddingTop: "15px" }}>
+                    <Row gutter={[24, 24]} style={{ paddingTop: "15px" }}>
                         <Col span={5}>
                             <Form.Item name="EquipmentNo" label="设备号" labelCol={{ span: 6 }}>
                                 <Input onChange={(e) => { this.searchChange(e.target.value); }}></Input >

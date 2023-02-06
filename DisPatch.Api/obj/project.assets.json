@@ -3329,8 +3329,8 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "DisPatch.Common >= 1.0.0",
       "DisPatch.Implements >= 1.0.0",
-      "DisPatch.Model >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
   },
@@ -3366,11 +3366,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Common\\DisPatch.Common.csproj": {
+              "projectPath": "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Common\\DisPatch.Common.csproj"
+            },
             "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Implements\\DisPatch.Implements.csproj": {
               "projectPath": "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Implements\\DisPatch.Implements.csproj"
-            },
-            "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Model\\DisPatch.Model.csproj": {
-              "projectPath": "D:\\GitHub\\Gantt\\DisPatch\\DisPatch.Model\\DisPatch.Model.csproj"
             }
           }
         }
