@@ -49,8 +49,9 @@ namespace DisPatch.Common.Helpers
             var userCache = CacheUtil.GetCache(authVal[0]);
             if (userCache != null)
             {
-                if (userCache != token)
+                if (userCache.ToString() != token)
                 {
+                    CacheUtil.SetCache(authVal[0], null);
                     throw new Exception($"当前用户【{authVal[0]}】token异常！");
                 }
             }

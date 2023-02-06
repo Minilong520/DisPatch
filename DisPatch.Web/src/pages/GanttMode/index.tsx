@@ -3,9 +3,10 @@ import dayjs from 'dayjs';
 import { PageContainer } from '@ant-design/pro-components';
 import Highcharts from 'highcharts/highcharts-gantt';
 import HighchartsReact from 'highcharts-react-official';
-import { Button, Col, DatePicker, Divider, Form, Input, Row, Segmented, Spin, Table } from 'antd';
+import { Button, Col, DatePicker, Divider, Form, Input, message, Row, Segmented, Spin, Table } from 'antd';
 import { AppstoreOutlined, BarsOutlined, FundViewOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import { http } from '@/services/request/request';
 
 
 export default class GanttMode extends Component<any, any> {
@@ -234,7 +235,33 @@ export default class GanttMode extends Component<any, any> {
 
     /** 查询方法 */
     dataSelect = () => {
-        this.dataSelectDemo();
+        let sel = this;
+        sel.setState({
+            loading: true,
+        }, () => {
+            http.post(`/Gantt/GetGantt`, {
+                data: {                   
+                    equipmentNo: this.state.searchInfo.equipmentNo,
+                    lotNo: this.state.searchInfo.lotNo,
+                    dispStartTime: this.state.searchInfo.start,
+                    dispEndTime: this.state.searchInfo.end
+                },
+            }).then(function (response) {
+                console.log(response);
+                sel.setState({
+                    ganttData: response.ganttData,
+                    eqpInfo: response.equipmentNoList,
+                    loading: false,
+                })
+                sel.chartBindData(response.ganttData, response.equipmentNoList);
+                message.success("查询数据成功");                
+            }).catch(function (error) {
+                console.log(error);
+                sel.setState({ loading: false })
+                message.error("查询数据异常：" + error.message);
+                //sel.dataSelectDemo();
+            });
+        })
     }
 
     /** 此处模拟数据展示 */
@@ -338,7 +365,29 @@ export default class GanttMode extends Component<any, any> {
 
     /** 保存方法 */
     dataSave = () => {
+        let sel = this;
+        sel.setState({
+            loading: true,
+        }, () => {
+            // 1.日期格式化
+            let newData = sel.state.ganttData.map((item: any) => {
+                item.start = new Date(item.start).toLocaleString();
+                item.end = new Date(item.end).toLocaleString()
+                return item
+            });
 
+            http.post(`/Gantt/SetGantt`, {
+                data: { ganttInfo: newData },
+            }).then(function (response) {
+                console.log(response);
+                sel.setState({ loading: false })
+                message.success("保存数据成功");                
+            }).catch(function (error) {
+                console.log(error);
+                sel.setState({ loading: false })
+                message.error("保存数据异常：" + error.message);                
+            });
+        })
     }
 
     //#endregion
