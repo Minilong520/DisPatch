@@ -23,8 +23,8 @@ const codeMessage: any = {
     504: '网关超时。',
 }
 
-const prefix = "http://127.0.0.1:5000"
 //const prefix = "http://127.0.0.1:5225"
+const prefix = "http://106.14.238.165:5225"
 
 const errorHandler = (error: any) => {
     console.log(error);

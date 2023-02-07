@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisPatch.Model", "DisPatch.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisPatch.Common", "DisPatch.Common\DisPatch.Common.csproj", "{F6D432C0-F681-4745-A0E3-921EB6A53C10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisPatch.License", "DisPatch.License\DisPatch.License.csproj", "{47B188CC-5082-4765-907C-E4BF414CA9E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisPatch.License", "DisPatch.License\DisPatch.License.csproj", "{47B188CC-5082-4765-907C-E4BF414CA9E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisPatch.Liense.Create", "DisPatch.Liense.Create\DisPatch.Liense.Create.csproj", "{A0B5E727-4480-4870-AC8B-82FEC953715B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisPatch.Liense.Create", "DisPatch.Liense.Create\DisPatch.Liense.Create.csproj", "{A0B5E727-4480-4870-AC8B-82FEC953715B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisPatch.Schedule", "DisPatch.Schedule\DisPatch.Schedule.csproj", "{0A8913F7-03F7-42C3-920F-F4EB8000BDC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{A0B5E727-4480-4870-AC8B-82FEC953715B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0B5E727-4480-4870-AC8B-82FEC953715B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0B5E727-4480-4870-AC8B-82FEC953715B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A8913F7-03F7-42C3-920F-F4EB8000BDC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A8913F7-03F7-42C3-920F-F4EB8000BDC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A8913F7-03F7-42C3-920F-F4EB8000BDC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A8913F7-03F7-42C3-920F-F4EB8000BDC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

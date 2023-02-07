@@ -6,7 +6,7 @@ import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { FormattedMessage, history, SelectLang, useIntl, useModel, Helmet } from '@umijs/max';
 import { message, Tabs } from 'antd';
 import Settings from '../../../../config/defaultSettings';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { userLogin } from '@/services/request/userinfo';
 
@@ -84,6 +84,23 @@ const Login: React.FC = () => {
     }
   };
 
+  const autoLogin = () => {
+    // let userInfo = getLoginUser() || undefined;
+    // if (userInfo !== undefined) {
+    //   if (userInfo.data) {
+    //     try {
+    //       userAutoLogin(userInfo);
+    //       const urlParams = new URL(window.location.href).searchParams;
+    //       history.push(urlParams.get('redirect') || '/');
+    //     }
+    //     catch (error) {
+    //       console.log(error);
+    //     }
+    //   }
+    // }
+  }
+  useEffect(() => { autoLogin(); }, []);
+
   return (
     <div className={containerClassName}>
       <Helmet><title>{intl.formatMessage({ id: 'menu.login', defaultMessage: '登录页', })}- {Settings.title}</title></Helmet>
@@ -95,10 +112,7 @@ const Login: React.FC = () => {
           //subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
           initialValues={{ autoLogin: true, }}
           onFinish={async (values) => { await handleSubmit(values as API.LoginParams); }}>
-          <Tabs activeKey={type} onChange={setType} centered
-            items={[
-              { key: 'account', label: intl.formatMessage({ id: 'pages.login.accountLogin.tab', defaultMessage: '账户密码登录', }) }
-            ]} />
+          <Tabs activeKey={type} onChange={setType} centered items={[{ key: 'account', label: intl.formatMessage({ id: 'pages.login.accountLogin.tab', defaultMessage: '账户密码登录', }) }]} />
 
           {type === 'account' && (
             <>

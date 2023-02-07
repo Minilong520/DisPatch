@@ -15,10 +15,9 @@ namespace DisPatch.Common.Helpers
         /// <summary>
         /// 检查授权（登录使用）
         /// </summary>
-        public static void CheckAuthorize(string userNo)
+        public static void CheckAuthorize(string userNo, bool autoLogin)
         {
-            if (licenseHelper == null)
-                licenseHelper = new LicenseHelper();
+            checkLicense();
 
             // 限制服务器MAC地址 + 时间限制
             string mac = WindowsUtil.GetMacAddress();
@@ -35,7 +34,8 @@ namespace DisPatch.Common.Helpers
             var userCache = CacheUtil.GetCache(userNo);
             if (userCache != null)
             {
-                throw new Exception($"当前用户【{userNo}】已登录！");
+                //if (!autoLogin)
+                //    throw new Exception($"当前用户【{userNo}】已登录！");
             }
         }
 
@@ -52,6 +52,13 @@ namespace DisPatch.Common.Helpers
                 if (userCache.ToString() != token)
                 {
                     CacheUtil.SetCache(authVal[0], null);
+
+                    var userCountCache = CacheUtil.GetCache(DisPatchAuthOptions.Scheme);
+                    if (userCountCache != null)
+                    {
+                        CacheUtil.SetCache(DisPatchAuthOptions.Scheme, Convert.ToInt32(userCountCache) - 1);
+                    }
+
                     throw new Exception($"当前用户【{authVal[0]}】token异常！");
                 }
             }
@@ -74,8 +81,7 @@ namespace DisPatch.Common.Helpers
             }
             else
             {
-                if (licenseHelper == null)
-                    licenseHelper = new LicenseHelper();
+                checkLicense();
 
                 if (Convert.ToInt32(userCache) >= licenseHelper.count)
                 {
@@ -86,6 +92,36 @@ namespace DisPatch.Common.Helpers
             }
 
             CacheUtil.SetCache(userNo, token);
+        }
+
+        /// <summary>
+        /// 检查授权文件
+        /// </summary>
+        private static void checkLicense()
+        {
+            // 实例化
+            if (licenseHelper == null)
+                licenseHelper = new LicenseHelper();
+
+            string licenseFile = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "license.lic");
+            if (!File.Exists(licenseFile))
+                throw new Exception("缺少授权文件！");
+
+            licenseHelper.lastWrite = new FileInfo(licenseFile).LastWriteTime;
+
+            var licenseLastWrite = CacheUtil.GetCache("licenseLastWrite");
+            if (licenseLastWrite == null)
+            {
+                CacheUtil.SetCache("licenseLastWrite", licenseHelper.lastWrite);
+            }
+            else
+            {
+                if (Convert.ToDateTime(licenseLastWrite) < licenseHelper.lastWrite)
+                {
+                    // 取最新授权
+                    licenseHelper = new LicenseHelper();
+                }
+            }
         }
     }
 }

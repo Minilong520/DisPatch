@@ -39,11 +39,17 @@ export default [
   //     },
   //   ],
   // },
+  // {
+  //   name: 'list.gantt-mode',
+  //   icon: 'AreaChart',
+  //   path: '/gantt',
+  //   component: './GanttMode',
+  // },
   {
     name: 'list.gantt-mode',
     icon: 'AreaChart',
-    path: '/gantt',
-    component: './GanttMode',
+    path: '/wfgantt',
+    component: './GanttModeWF',
   },
   // {
   //   name: 'list.table-list',
@@ -53,7 +59,7 @@ export default [
   // },
   {
     path: '/',
-    redirect: '/gantt',
+    redirect: '/wfgantt',
   },
   {
     path: '*',

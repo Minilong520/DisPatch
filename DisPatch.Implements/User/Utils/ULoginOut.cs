@@ -1,4 +1,5 @@
-﻿using DisPatch.Common.Helpers;
+﻿using DisPatch.Common.Authentication;
+using DisPatch.Common.Helpers;
 using DisPatch.Model.Basis;
 using DisPatch.Model.User;
 using System;
@@ -14,6 +15,13 @@ namespace DisPatch.Implements.User.Utils
         public static RES_Login LoginOut(REQ_Login userLogin)
         {
             CacheUtil.SetCache(userLogin.userNo, null);
+
+            var userCountCache = CacheUtil.GetCache(DisPatchAuthOptions.Scheme);
+            if (userCountCache != null)
+            {
+                CacheUtil.SetCache(DisPatchAuthOptions.Scheme, Convert.ToInt32(userCountCache) - 1);
+            }
+
             return new RES_Login();
         }
     }

@@ -32,11 +32,6 @@ builder.Services.AddMvc().AddJsonOptions(
     }
 );
 
-//builder.Services.Configure<JsonOptions>(options =>
-//{
-//    options.SerializerOptions.Converters.Add(new TimeOnly);
-//});
-
 builder.Services.AddControllers(options =>
 {
     options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
@@ -48,6 +43,8 @@ builder.Services.AddAuthentication(options =>
     //options.DefaultScheme = DefaultAuthHandler.SchemeName;//不要指定默认授权方案，否则所有请求都会进行验证
     options.AddScheme<DisPatchAuthHandler>(DisPatchAuthOptions.Scheme, DisPatchAuthOptions.Scheme);
 });
+
+
 
 var app = builder.Build();
 

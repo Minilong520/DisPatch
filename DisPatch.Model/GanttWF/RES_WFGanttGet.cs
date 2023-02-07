@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DisPatch.Model.User
+namespace DisPatch.Model.GanttWF
 {
-    public class REQ_Login : REQ_Basis
+    public class RES_WFGanttGet
     {
         /// <summary>
-        /// 密码
+        /// 查询出的甘特信息
         /// </summary>
-        public string password { get; set; }
+        public List<DTO_WFGanttInfo> ganttData { get; set; }
 
         /// <summary>
-        /// 自动登录
+        /// 工作中心集合
         /// </summary>
-        public bool autoLogin { get; set; } = false;
+        public List<string> workCenterList { get; set; }
     }
 }

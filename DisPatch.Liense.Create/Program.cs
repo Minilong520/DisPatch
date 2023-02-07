@@ -3,16 +3,39 @@
 using DisPatch.Common.Utils;
 using Newtonsoft.Json;
 using System;
+using System.Management;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
 
+string macLocal = "";
+try
+{
+    string strMac = string.Empty;
+    ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+    ManagementObjectCollection moc = mc.GetInstances();
+    foreach (ManagementObject mo in moc)
+    {
+        if ((bool)mo["IPEnabled"] == true)
+        {
+            strMac = mo["MacAddress"].ToString();
+        }
+    }
+    moc = null;
+    mc = null;
+    macLocal = strMac.Replace(":", "");
+}
+catch (Exception)
+{
+
+}
+
 string FilePath = @"D:\Temp\license.lic";
 string XMLPath = @"D:\Temp\license.xml";
 
 Console.WriteLine("*-*-*-*-*-*-*-*-*-*-DisPatch授权文件生成启动-*-*-*-*-*-*-*-*-*-*");
-Console.WriteLine("请输入授权服务器MAC地址：");
+Console.WriteLine($"请输入授权服务器MAC地址[{macLocal}]：");
 string mac = Console.ReadLine().ToString();
 Console.WriteLine("请输入授权天数：");
 string date = Console.ReadLine().ToString();

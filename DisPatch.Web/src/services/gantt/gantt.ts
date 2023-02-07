@@ -28,6 +28,28 @@ declare namespace Gantt {
     y?: number;
   };
 
+  type ganttWFInfo = {
+    /** 工作中心 */
+    workCenter?: string;
+    /** 工作中心-记录 */
+    workCenterOld?: string;
+    /** 生产批 */
+    lotNo?: string;
+    /** 执行任务 */
+    job?: string;
+    /** 开始时间 */
+    start?: string;
+    /** 结束时间 */
+    end?: string;
+    /** 是否调整 */
+    isChange?: boolean;
+    /** ID */
+    uid?: number;
+    /** 行号 */
+    y?: number;
+  };
+
+
   type Options = {
     title?: string,
     xAxis?: Options_xAxis[],

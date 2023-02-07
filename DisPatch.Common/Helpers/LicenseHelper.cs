@@ -25,6 +25,11 @@ namespace DisPatch.Common.Helpers
         /// </summary>
         public int count { get; } = -1;
 
+        /// <summary>
+        /// 授权文件修改时间
+        /// </summary>
+        public DateTime lastWrite { get; set; }
+
         public LicenseHelper()
         {
             try
@@ -32,6 +37,8 @@ namespace DisPatch.Common.Helpers
                 string licenseFile = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "license.lic");
                 if (!File.Exists(licenseFile))
                     throw new Exception("缺少授权文件！");
+
+                lastWrite = new FileInfo(licenseFile).LastWriteTime;
 
                 string licenseDll = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "DisPatch.License.dll");
                 if (!File.Exists(licenseDll))
