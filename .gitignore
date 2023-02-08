@@ -9,3 +9,16 @@ DisPatch.Model/obj/Debug/
 .vs/ProjectEvaluation/dispatch.projects.v2
 *.dll
 *.pdb
+DisPatch.DB/obj/Release/
+DisPatch.Common/obj/Release/net6.0/DisPatch.Common.csproj.FileListAbsolute.txt
+DisPatch.Common/obj/Release/net6.0/DisPatch.Common.GeneratedMSBuildEditorConfig.editorconfig
+DisPatch.Common/obj/Release/
+DisPatch.Api/obj/Release/
+DisPatch.License/obj/Release/
+DisPatch.Implements/obj/Release/
+DisPatch.Liense.Create/obj/Release/
+DisPatch.Model/obj/Release/
+DisPatch.Schedule/obj/
+DisPatch.Common/obj/Debug/
+DisPatch.License/obj/Debug/
+DisPatch.Liense.Create/obj/Debug/
