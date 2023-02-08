@@ -56,8 +56,8 @@ export default class GanttModeWF extends Component<any, any> {
                     formatter: function () {
                         return `<div> 工作中心: ${this.point?.workCenter}<br/>
                                       计划批号: ${this.point?.lotNo}<br/>                                      
-                                      开始时间: ${dayjs(this.point?.start).format('YYYY-MM-DD')}<br/>
-                                      结束时间: ${dayjs(this.point?.end).format('YYYY-MM-DD')}<br/>
+                                      预计开工日: ${dayjs(this.point?.start).format('YYYY-MM-DD')}<br/>
+                                      预计完工日: ${dayjs(this.point?.end).format('YYYY-MM-DD')}<br/>
                                 </div>`
                     }
                 },
@@ -310,24 +310,26 @@ export default class GanttModeWF extends Component<any, any> {
                 width: "20%",
             },
             {
-                title: "生产批",
+                title: "计划批号",
                 dataIndex: 'lotNo',
                 key: 'lotNo',
                 width: "20%",
             },
             {
-                title: "开始时间",
+                title: "预计开工日",
                 dataIndex: 'start',
                 key: 'start',
                 width: "20%",
-                render: (text: any) => <div>{moment(text).format('yyyy-MM-DD')}</div>,
+                //render: (text: any) => <div>{moment(text).format('yyyy-MM-DD')}</div>,      
+                render: (text: any) => <div>{moment(new Date(text).toLocaleString()).format('yyyy-MM-DD')}</div>          
             },
             {
-                title: "结束时间",
+                title: "预计完工日",
                 dataIndex: 'end',
                 key: 'end',
                 width: "20%",
-                render: (text: any) => <div>{moment(text).format('yyyy-MM-DD')}</div>,
+                //render: (text: any) => <div>{moment(text).format('yyyy-MM-DD')}</div>,                
+                render: (text: any) => <div>{moment(new Date(text).toLocaleString()).format('yyyy-MM-DD')}</div>          
             },
         ];
 
@@ -342,17 +344,17 @@ export default class GanttModeWF extends Component<any, any> {
                             </Form.Item>
                         </Col>
                         <Col span={5}>
-                            <Form.Item name="LotNo" label="生产批" labelCol={{ span: 6 }}>
+                            <Form.Item name="LotNo" label="计划批号" labelCol={{ span: 6 }}>
                                 <Input onChange={(e) => { this.searchChange(undefined, e.target.value); }}></Input >
                             </Form.Item>
                         </Col>
                         <Col span={5}>
-                            <Form.Item name="DispStartTime" label="开始时间" labelCol={{ span: 6 }}>
+                            <Form.Item name="DispStartTime" label="预计开工日" labelCol={{ span: 6 }}>
                                 <DatePicker onChange={(date, datestring) => { this.searchChange(undefined, undefined, datestring); }} style={{ width: '100%' }} />
                             </Form.Item>
                         </Col>
                         <Col span={5}>
-                            <Form.Item name="DispEndTime" label="结束时间" colon={true} labelCol={{ span: 6 }}>
+                            <Form.Item name="DispEndTime" label="预计完工日" colon={true} labelCol={{ span: 6 }}>
                                 <DatePicker onChange={(date, datestring) => { this.searchChange(undefined, undefined, undefined, datestring); }} style={{ width: '100%' }} />
                             </Form.Item>
                         </Col>

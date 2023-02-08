@@ -20,7 +20,7 @@ namespace DisPatch.Implements.GanttWF.Utills
                                         TA033 AS job,
                                         TA009 AS start,TA010 as 'end'
                                  FROM MOCTA 
-                                 WHERE TA021 IS NOT NULL AND TA021 <> ''");
+                                 WHERE TA021 IS NOT NULL AND TA021 <> '' AND TA010 IS NOT NULL AND TA010 <> ''");
 
             if (!string.IsNullOrEmpty(ganttInfo.workCenter))
                 sbSQL.AppendFormat(" AND TA021 LIKE '%{0}%' ", ganttInfo.workCenter);
@@ -29,10 +29,10 @@ namespace DisPatch.Implements.GanttWF.Utills
                 sbSQL.AppendFormat(" AND TA033 LIKE '%{0}%' ", ganttInfo.lotNo);
 
             if (!string.IsNullOrEmpty(ganttInfo.dispStartTime))
-                sbSQL.AppendFormat(" AND TA009 >= '{0}' ", Convert.ToDateTime(ganttInfo.dispStartTime).ToString("yyyyMMdd"));
+                sbSQL.AppendFormat(" AND TA009 > '{0}' ", Convert.ToDateTime(ganttInfo.dispStartTime).ToString("yyyyMMdd"));
 
             if (!string.IsNullOrEmpty(ganttInfo.dispEndTime))
-                sbSQL.AppendFormat(" AND TA010 <= '{0}' ", Convert.ToDateTime(ganttInfo.dispEndTime).ToString("yyyyMMdd"));
+                sbSQL.AppendFormat(" AND TA010 < '{0}' ", Convert.ToDateTime(ganttInfo.dispEndTime).ToString("yyyyMMdd"));
 
             sbSQL.AppendFormat(" order by workCenter ");
 
@@ -65,8 +65,8 @@ namespace DisPatch.Implements.GanttWF.Utills
 
                     item.start = DateTime.ParseExact(item.start.Trim(), "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture).ToString("yyyy-MM-dd") + "T08:00:00";
                     item.end = item.end == null ?
-                        DateTime.ParseExact(item.start.Trim(), "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture).ToString("yyyy-MM-dd") + "T08:00:00" :
-                        DateTime.ParseExact(item.end.Trim(), "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture).ToString("yyyy-MM-dd") + "T08:00:00";
+                        DateTime.ParseExact(item.start.Trim(), "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture).ToString("yyyy-MM-dd") + "T20:00:00" :
+                        DateTime.ParseExact(item.end.Trim(), "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture).ToString("yyyy-MM-dd") + "T20:00:00";
                 }
             }
 

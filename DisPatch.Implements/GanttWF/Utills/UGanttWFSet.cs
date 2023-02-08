@@ -24,7 +24,7 @@ namespace DisPatch.Implements.GanttWF.Utills
                         sbSQL.Clear();
                         sbSQL.AppendFormat(@" UPDATE MOCTA 
                                               SET TA009 = '{0}',TA010 = '{1}',TA021 = '{2}'
-                                              WHERE TA033 = '{4}' ",
+                                              WHERE TA033 = '{3}' ",
                                               item.workCenterOld,
                                               Convert.ToDateTime(item.start).ToString("yyyyMMdd"),
                                               Convert.ToDateTime(item.end).ToString("yyyyMMdd"),
